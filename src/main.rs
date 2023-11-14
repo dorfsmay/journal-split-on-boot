@@ -24,11 +24,11 @@ fn split_file(ifile: &String) -> io::Result<()> {
         mut writer,
     } = new_writer(counter);
 
-    let mut line: String = "".to_string();
+    let line: &String = &"".to_string();
     let mut previous_line: String;
     for line_read in reader.lines() {
         previous_line = line.clone();
-        line = line_read?.clone();
+        let line = &line_read?;
 
         if line.starts_with("-- Boot ") {
             let status = if previous_line.ends_with("Journal stopped") {
