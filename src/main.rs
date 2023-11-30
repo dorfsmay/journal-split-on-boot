@@ -24,10 +24,8 @@ fn split_file(ifile: &String) -> io::Result<()> {
         mut writer,
     } = new_writer(counter);
 
-    let line: &String = &"".to_string();
-    let mut previous_line: String;
+    let mut previous_line: String = "".to_string();
     for line_read in reader.lines() {
-        previous_line = line.clone();
         let line = &line_read?;
 
         if line.starts_with("-- Boot ") {
@@ -41,6 +39,7 @@ fn split_file(ifile: &String) -> io::Result<()> {
             counter += 1;
             OutputWriter { name, writer } = new_writer(counter);
         }
+        previous_line = line.clone();
         writer.write_all(format!("{}\n", line).as_bytes())?;
     }
     Ok(())
